@@ -1,0 +1,38 @@
+{
+  "name": "news-search-api",
+  "version": "1.0.0",
+  "description": "backend for searching news web app",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tychtych/news-search-api.git"
+  },
+  "author": "Anastasiia Tychkova",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tychtych/news-search-api/issues"
+  },
+  "homepage": "https://github.com/tychtych/news-search-api#readme",
+  "devDependencies": {
+    "eslint": "^7.10.0",
+    "husky": "^4.3.0"
+  },
+  "dependencies": {
+    "eslint-config-airbnb-base": "^14.2.0",
+    "eslint-plugin-import": "^2.22.1",
+    "lint-staged": "^10.4.0",
+    "nodemon": "^2.0.4"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.js": "eslint --fix"
+  }
+}
