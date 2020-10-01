@@ -19,13 +19,19 @@
   "homepage": "https://github.com/tychtych/news-search-api#readme",
   "devDependencies": {
     "eslint": "^7.10.0",
-    "husky": "^4.3.0"
+    "husky": "^4.3.0",
+    "nodemon": "^2.0.4"
   },
   "dependencies": {
+    "bcrypt": "^5.0.0",
     "eslint-config-airbnb-base": "^14.2.0",
     "eslint-plugin-import": "^2.22.1",
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
     "lint-staged": "^10.4.0",
-    "nodemon": "^2.0.4"
+    "mongoose": "^5.10.7",
+    "mongoose-unique-validator": "^2.0.3",
+    "validator": "^13.1.17"
   },
   "husky": {
     "hooks": {
