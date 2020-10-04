@@ -32,6 +32,7 @@ module.exports.createNewUser = (req, res, next) => {
       if (err.errors.email && err.errors.email.kind === 'unique') {
         throw new ConflictErr('The user with this email already exists');
       }
+      throw err;
     })
     .catch(next);
 };

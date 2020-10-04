@@ -8,11 +8,11 @@ const users = require('./routes/users');
 const articles = require('./routes/articles');
 const auth = require('./middlewares/auth');
 const { createNewUser, login } = require('./controllers/users');
-// const { requestLogger, errorLogger } = require('./middlewares/logger');
+const { requestLogger, errorLogger } = require('./middlewares/logger');
 
-const { MongoHost } = require('./configuration');
+const { MongoUrl } = require('./configuration');
 
-mongoose.connect(`mongodb://${MongoHost}:27017/searchappdb`, {
+mongoose.connect(MongoUrl, {
   useNewUrlParser: true,
   useCreateIndex: true,
   useFindAndModify: false,
@@ -23,6 +23,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 const { PORT = 3000 } = process.env;
 
+app.use(requestLogger);
+
 app.post('/signup', createNewUser);
 app.post('/signin', login);
 
@@ -30,6 +32,8 @@ app.use(auth);
 
 app.use('/users', users);
 app.use('/articles', articles);
+
+app.use(errorLogger); // подключаем логгер ошибок
 
 app.use((err, req, res, next) => {
   if (!err) {
