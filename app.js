@@ -31,11 +31,15 @@ app.use(auth);
 app.use('/users', users);
 app.use('/articles', articles);
 
-app.use((err, req, res) => {
-  const { statusCode = 500, message } = err;
-  res.status(statusCode).send({
-    message: statusCode === 500 ? 'Internal server error' : message,
-  });
+app.use((err, req, res, next) => {
+  if (!err) {
+    next();
+  } else {
+    const { statusCode = 500, message } = err;
+    res.status(statusCode).send({
+      message: statusCode === 500 ? 'Internal server error' : message,
+    });
+  }
 });
 
 app.listen(PORT, () => {
