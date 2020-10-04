@@ -33,7 +33,7 @@ module.exports.deleteArticle = (req, res, next) => {
     .orFail(new NotFoundError('Article not found'))
     .then((article) => {
       if (article.owner.toString() !== req.user._id) {
-        throw new ForbiddenError('You can delete only your card');
+        throw new ForbiddenError('You can delete only your article');
       } else {
         Article.deleteOne(article)
           .then(() => res.send({ message: 'Article is deleted!' }));

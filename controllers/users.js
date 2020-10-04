@@ -6,7 +6,7 @@ const NotFoundError = require('../errors/notFound');
 const ConflictErr = require('../errors/conflictErr');
 const NotAuthorized = require('../errors/notAuthor');
 
-const { SecretKey } = require('../secretpath/secret');
+const { SecretKey } = require('../configuration');
 
 module.exports.getUserProfile = (req, res, next) => {
   UserSchema.findById({ _id: req.user._id })

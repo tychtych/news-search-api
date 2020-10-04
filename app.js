@@ -10,7 +10,9 @@ const auth = require('./middlewares/auth');
 const { createNewUser, login } = require('./controllers/users');
 // const { requestLogger, errorLogger } = require('./middlewares/logger');
 
-mongoose.connect('mongodb://localhost:27017/searchappdb', {
+const { MongoHost } = require('./configuration');
+
+mongoose.connect(`mongodb://${MongoHost}:27017/searchappdb`, {
   useNewUrlParser: true,
   useCreateIndex: true,
   useFindAndModify: false,
@@ -28,6 +30,13 @@ app.use(auth);
 
 app.use('/users', users);
 app.use('/articles', articles);
+
+app.use((err, req, res) => {
+  const { statusCode = 500, message } = err;
+  res.status(statusCode).send({
+    message: statusCode === 500 ? 'Internal server error' : message,
+  });
+});
 
 app.listen(PORT, () => {
   // Если всё работает, консоль покажет, какой порт приложение слушает
