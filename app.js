@@ -5,6 +5,7 @@ const mongoose = require('mongoose');
 
 const app = express();
 const helmet = require('helmet');
+const { limiter } = require('./middlewares/limit');
 const users = require('./routes/users');
 const articles = require('./routes/articles');
 const auth = require('./middlewares/auth');
@@ -21,6 +22,8 @@ mongoose.connect(MongoUrl, {
 });
 
 app.use(helmet());
+
+app.use(limiter);
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
