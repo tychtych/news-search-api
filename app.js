@@ -4,9 +4,11 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 
 const app = express();
+const helmet = require('helmet');
 const users = require('./routes/users');
 const articles = require('./routes/articles');
 const auth = require('./middlewares/auth');
+const error = require('./middlewares/error');
 const { createNewUser, login } = require('./controllers/users');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 
@@ -17,6 +19,8 @@ mongoose.connect(MongoUrl, {
   useCreateIndex: true,
   useFindAndModify: false,
 });
+
+app.use(helmet());
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -35,16 +39,7 @@ app.use('/articles', articles);
 
 app.use(errorLogger); // подключаем логгер ошибок
 
-app.use((err, req, res, next) => {
-  if (!err) {
-    next();
-  } else {
-    const { statusCode = 500, message } = err;
-    res.status(statusCode).send({
-      message: statusCode === 500 ? 'Internal server error' : message,
-    });
-  }
-});
+app.use(error);
 
 app.listen(PORT, () => {
   // Если всё работает, консоль покажет, какой порт приложение слушает

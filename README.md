@@ -1,7 +1,7 @@
 # news-search-api
 Backend for News Search App
 
-Please find the prod version via the link: https://tychpress.ga/
+Please find the prod version via the link: https://api.tychpress.ga/
 
 Install dependencies: `npm install`
 
