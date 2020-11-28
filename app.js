@@ -5,6 +5,7 @@ const mongoose = require('mongoose');
 
 const app = express();
 const helmet = require('helmet');
+const cors = require('cors');
 const { limiter } = require('./middlewares/limit');
 const users = require('./routes/users');
 const articles = require('./routes/articles');
@@ -20,6 +21,8 @@ mongoose.connect(MongoUrl, {
   useCreateIndex: true,
   useFindAndModify: false,
 });
+
+app.use(cors());
 
 app.use(helmet());
 
